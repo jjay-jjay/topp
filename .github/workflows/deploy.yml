@@ -1,9 +1,9 @@
 name: Deploy React + Vite to GitHub Pages
 
 on:
-    workflow_dispatch:
-    push:
-     branches:
+  workflow_dispatch:
+  push:
+    branches:
       - main
 
 jobs:
@@ -17,7 +17,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-            node-version: 18
+          node-version: 18
 
       - name: Install Dependencies
         run: npm install
@@ -25,9 +25,10 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: dist
+          path: dist/
 
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v2
